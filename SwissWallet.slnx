@@ -1,0 +1,7 @@
+<Solution>
+  <Project Path="SwissWallet.Core.UnitTests/SwissWallet.Core.UnitTests.csproj" Id="af5e8289-e209-476f-a239-a8834aa1c06e" />
+  <Project Path="SwissWallet.Core/SwissWallet.Core.csproj" Id="a37236b9-d6c2-47e1-8022-7d2a32ea7376" />
+  <Project Path="SwissWallet.Data/SwissWallet.Data.csproj" Id="ad8c4de6-0ade-4127-a3da-546f0cadbd69" />
+  <Project Path="SwissWallet.Models/SwissWallet.Models.csproj" Id="0bea8004-1f31-4a41-9ecb-519807ce2fa4" />
+  <Project Path="SwissWallet.Web/SwissWallet.Web.csproj" />
+</Solution>
