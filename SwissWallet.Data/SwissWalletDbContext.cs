@@ -1,5 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using SwissWallet.Core.Domain;
+using SwissWallet.Models.Domain;
 
 namespace SwissWallet.Data
 {

@@ -1,6 +1,4 @@
-﻿using System.Transactions;
-
-namespace SwissWallet.Core.Domain
+﻿namespace SwissWallet.Models.Domain
 {
     public class Portfolio
     {

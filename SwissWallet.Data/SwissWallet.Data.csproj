@@ -17,6 +17,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\SwissWallet.Core\SwissWallet.Core.csproj" />
+    <ProjectReference Include="..\SwissWallet.Models\SwissWallet.Models.csproj" />
   </ItemGroup>
 
 </Project>

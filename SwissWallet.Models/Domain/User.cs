@@ -1,4 +1,4 @@
-﻿namespace SwissWallet.Core.Domain
+﻿namespace SwissWallet.Models.Domain
 {
     public class User
     {
