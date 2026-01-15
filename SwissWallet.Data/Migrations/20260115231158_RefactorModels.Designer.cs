@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using SwissWallet.Data;
 
@@ -11,9 +12,11 @@ using SwissWallet.Data;
 namespace SwissWallet.Data.Migrations
 {
     [DbContext(typeof(SwissWalletDbContext))]
-    partial class SwissWalletDbContextModelSnapshot : ModelSnapshot
+    [Migration("20260115231158_RefactorModels")]
+    partial class RefactorModels
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder

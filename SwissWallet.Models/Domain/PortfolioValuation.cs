@@ -4,13 +4,11 @@
     {
         public int Id { get; set; }
 
-        public int PortfolioId { get; set; }
+        public required int PortfolioId { get; set; }
 
-        public Portfolio Portfolio { get; set; } = null!;
+        public required DateTime ValuationDate { get; set; }
 
-        public DateTime ValuationDate { get; set; }
-
-        public decimal TotalValue { get; set; }
+        public required decimal TotalValue { get; set; }
 
         public string? Notes { get; set; }
     }

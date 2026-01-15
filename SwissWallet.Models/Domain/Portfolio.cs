@@ -4,16 +4,16 @@
     {
         public int Id { get; set; }
 
-        public int UserId { get; set; }
+        public required int UserId { get; set; }
 
-        public string Name { get; set; } = null!;
+        public required string Name { get; set; }
 
-        public string Platform { get; set; } = null!;
+        public required string Currency { get; set; }
 
         public User User { get; set; } = null!;
 
-        public ICollection<PortfolioValuation> Valuations { get; set; } = new List<PortfolioValuation>();
+        public ICollection<Account> Accounts { get; set; } = new List<Account>();
 
-        public ICollection<Transaction> Transactions { get; set; } = new List<Transaction>();
+        public ICollection<PortfolioValuation> Valuations { get; set; } = new List<PortfolioValuation>();
     }
 }

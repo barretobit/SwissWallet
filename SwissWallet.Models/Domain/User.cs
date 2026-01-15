@@ -4,9 +4,11 @@
     {
         public int Id { get; set; }
 
-        public string Email { get; set; } = null!;
+        public required string Email { get; set; } 
 
-        public string Username { get; set; } = null!;
+        public required string Username { get; set; } 
+
+        public required string Password { get; set; } 
 
         public ICollection<Account> Accounts { get; set; } = new List<Account>();
 

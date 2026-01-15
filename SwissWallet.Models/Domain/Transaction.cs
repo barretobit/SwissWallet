@@ -4,16 +4,18 @@
     {
         public int Id { get; set; }
 
-        public int PortfolioId { get; set; }
+        public required int AccountId { get; set; }
 
-        public Portfolio Portfolio { get; set; } = null!;
+        public required DateTime Date { get; set; }
 
-        public DateTime Date { get; set; }
+        public required decimal Amount { get; set; }
 
-        public decimal Amount { get; set; }
+        public required string Currency { get; set; }
 
-        public string Type { get; set; } = null!;
+        public required bool IsCredit { get; set; }
 
         public string? Description { get; set; }
+
+        public Account Account { get; set; } = null!;
     }
 }
