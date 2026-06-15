@@ -1,37 +1,82 @@
+# ── OS / Editor ──────────────────────────────────────────
+.DS_Store
+Thumbs.db
 *.swp
 *.*~
-project.lock.json
-.DS_Store
 *.pyc
-nupkg/
 
-# Visual Studio Code
-.vscode
-
-# Rider
-.idea
-
-# User-specific files
+# ── IDE ──────────────────────────────────────────────────
+.vs/
+.vscode/
+.idea/
 *.suo
 *.user
 *.userosscache
 *.sln.docstates
+*.sln.ide/
 
-# Build results
+# ── Build results ────────────────────────────────────────
 [Dd]ebug/
 [Dd]ebugPublic/
 [Rr]elease/
 [Rr]eleases/
 x64/
 x86/
-build/
+[Ww][Ii][Nn]32/
+[Aa][Rr][Mm]/
+[Aa][Rr][Mm]64/
 bld/
 [Bb]in/
 [Oo]bj/
 [Oo]ut/
-msbuild.log
-msbuild.err
-msbuild.wrn
+[Ll]og/
+[Bb]uildLog*
 
-# Visual Studio 2015
-.vs/
+# ── .NET / NuGet ─────────────────────────────────────────
+project.lock.json
+project.fragment.lock.json
+artifacts/
+packages/
+nupkg/
+*.nupkg
+*.snupkg
+*.nuget.props
+*.nuget.targets
+_ReSharper*/
+*.[Rr]e[Ss]harper
+*.DotSettings.user
+.vsconfig
+
+# ── Testing / Coverage ───────────────────────────────────
+coverage/
+coverage.json
+coverage.opencover.xml
+*.coverage
+*.coveragexml
+TestResults/
+[Jj]asmine/
+
+# ── BenchmarkDotNet ──────────────────────────────────────
+BenchmarkDotNet.Artifacts/
+
+# ── User secrets / config ────────────────────────────────
+appsettings.Secrets.json
+secrets.json
+appsettings.*.local.json
+
+# ── Client libs (managed by LibMan) ───────────────────────
+wwwroot/lib/
+
+# ── Tooling / temp ───────────────────────────────────────
+[Tt]emp/
+[Rr]elease[Ss]cripts/
+[Dd]ocker/
+[Ee]xpress/
+*.tmp
+*.log
+*.tlog
+*.dacpac
+*.scc
+/StyleCopReport.xml
+*.pfx
+*.p12
