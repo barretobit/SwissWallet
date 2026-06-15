@@ -1,0 +1,321 @@
+SwissWallet - Master Implementation Plan
+
+Vision
+SwissWallet is a local-first personal wealth management application for individuals who want to track their net worth without relying on Excel spreadsheets.
+
+The application is intended to run entirely on a local Windows machine and store all data locally.
+
+SwissWallet is not a banking application, accounting system, portfolio management platform, trading platform, budgeting tool, or tax software.
+
+Its sole purpose is to provide a simple and maintainable way to track personal assets, liabilities, and net worth over time.
+
+CORE PRINCIPLES
+
+Principle 1 - Local First
+- All data remains on the user's machine.
+- No cloud features.
+- No synchronization.
+- No online accounts.
+- No telemetry.
+- No analytics.
+- No external dependencies except optional documentation packages.
+
+Principle 2 - Simplicity Over Complexity
+- Prefer pragmatic solutions.
+- Avoid enterprise patterns.
+- Avoid overengineering.
+- Code should be understandable by a single developer after months of inactivity.
+
+Principle 3 - Single User Application
+- The application assumes one user.
+- No authentication.
+- No login screen.
+- No user management.
+- No permissions.
+- No roles.
+
+Principle 4 - Data Ownership
+- All application data must be stored locally.
+
+Primary database:
+C:\SwissWallet\Data\SwissWallet.db
+
+Backup folder:
+C:\SwissWallet\Data\Backups
+
+TECHNOLOGY STACK
+
+Backend
+- .NET 10
+- ASP.NET Core
+- Blazor Server
+- Entity Framework Core
+- SQLite
+
+Frontend
+- Blazor Server Components
+- Bootstrap
+- Minimal UI
+- No JavaScript frameworks
+- No React
+- No Angular
+- No TypeScript
+
+ARCHITECTURE
+
+Application Style
+- Pragmatic Monolith
+- Single solution
+- Simple layering
+- No microservices
+- No modular monolith
+
+Forbidden Patterns
+Do not introduce:
+- CQRS
+- MediatR
+- Event Sourcing
+- Repository Pattern
+- Unit of Work Pattern
+- DDD
+- Message Bus
+- Background Processing Frameworks
+- Distributed Caching
+- Plugin Systems
+- Complex Generic Abstractions
+
+Preferred Structure
+
+SwissWallet
+├── Data
+├── Models
+├── Services
+├── Pages
+├── Components
+├── Migrations
+└── Configuration
+
+DOMAIN MODEL
+
+Provider
+Represents a bank, broker, institution or platform.
+
+Examples:
+- UBS
+- Swissquote
+- True Wealth
+- Neon
+- Revolut
+- Interactive Brokers
+
+Attributes:
+- Id
+- Name
+- Notes
+
+Portfolio
+Represents a container of value.
+
+Examples:
+- UBS Savings Account
+- UBS Investment Account
+- Gold Holdings
+- Bitcoin Wallet
+- Apartment Zurich
+
+Attributes:
+- Id
+- ProviderId
+- Name
+- AssetType
+- CurrencyCode
+- IsLiquid
+- Notes
+
+Portfolio Entry
+Represents historical changes.
+
+Entry Types:
+- Valuation
+- Contribution
+- Withdrawal
+
+Attributes:
+- Id
+- PortfolioId
+- EntryDate
+- EntryType
+- Amount
+- Notes
+
+Rules:
+- Valuation represents portfolio value on a date.
+- Contribution records money added.
+- Withdrawal records money removed.
+- Current portfolio value is always the latest valuation.
+
+Liability
+Represents debt.
+
+Examples:
+- Mortgage
+- Car Loan
+- Personal Loan
+- Margin Loan
+
+Attributes:
+- Id
+- Name
+- CurrencyCode
+- Notes
+
+Liability Entry
+Represents liability balance history.
+
+Attributes:
+- Id
+- LiabilityId
+- EntryDate
+- Amount
+- Notes
+
+Rules:
+- Latest entry represents current liability balance.
+
+Exchange Rate
+Represents manual currency conversion rates.
+
+Attributes:
+- CurrencyCode
+- ChfRate
+- LastUpdated
+
+Rules:
+- All reporting is performed in CHF.
+- Users manually maintain exchange rates.
+- Only major world currencies are supported.
+
+Application Settings
+
+Attributes:
+- BaseCurrency
+- BackupRetentionCount
+
+Rules:
+- BaseCurrency is fixed to CHF in V1.
+
+Asset Types (Fixed List)
+- Cash
+- SavingsAccount
+- InvestmentPortfolio
+- Pension
+- Crypto
+- PreciousMetals
+- JewelryWatches
+- Art
+- RealEstate
+- Vehicle
+- Other
+
+DASHBOARD
+
+Summary Cards
+- Net Worth
+- Total Assets
+- Total Liabilities
+- Liquid Assets
+- Illiquid Assets
+
+Allocation Charts
+- Asset Allocation
+- Currency Allocation
+- Provider Allocation
+- Liquidity Allocation
+
+Progression Section
+Display:
+- Last Month
+- Last 3 Months
+- Last 6 Months
+- Last Year
+
+Show percentage change and simple line chart.
+
+NET WORTH CALCULATION
+
+Net Worth = Total Assets - Total Liabilities
+
+Asset value:
+- Latest valuation entry converted to CHF.
+
+Liability value:
+- Latest liability balance converted to CHF.
+
+CURRENCY HANDLING
+
+- Supported currencies are predefined.
+- No automatic rate downloads.
+- No external APIs.
+- All exchange rates are maintained manually.
+- CHF is always the reporting currency.
+
+BACKUP STRATEGY
+
+- Automatic backup support.
+- Backup is implemented by copying the SQLite file.
+
+Backups stored in:
+C:\SwissWallet\Data\Backups
+
+- Timestamped filenames.
+
+IMPORT AND EXPORT
+
+V1 supports:
+- Database backup export
+- Database restore
+- CSV export for reporting
+
+Not supported:
+- Broker imports
+- Bank imports
+
+NON GOALS
+
+The following features must never be implemented:
+- Authentication
+- Users
+- Roles
+- Permissions
+- Cloud Sync
+- Broker Integrations
+- Bank Integrations
+- Tax Reporting
+- Budget Tracking
+- Expense Tracking
+- Income Tracking
+- Trading
+- Portfolio Rebalancing
+- AI Features
+- Mobile Application
+- Notifications
+- Email Features
+- Transaction Ledger
+- Open Banking
+- Market Data APIs
+- Investment Recommendations
+- Goal Tracking
+- Financial Planning
+- Multi User Support
+
+DEVELOPMENT RULES
+
+Every task must:
+- Compile successfully.
+- Keep the application runnable.
+- Include basic validation.
+- Avoid unnecessary abstractions.
+- Prefer readability over cleverness.
+- Prefer explicit code over generic frameworks.
+- Avoid introducing technical debt for hypothetical future requirements.
+- Focus on delivering a working product in small, reviewable increments.
