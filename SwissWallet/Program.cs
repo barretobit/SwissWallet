@@ -1,8 +1,12 @@
 using SwissWallet.Components;
+using SwissWallet.Data;
+using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
 
-// Add services to the container.
+builder.Services.AddDbContext<SwissWalletDbContext>(options =>
+    options.UseSqlite($"Data Source=C:\\SwissWallet\\Data\\SwissWallet.db"));
+
 builder.Services.AddRazorComponents()
     .AddInteractiveServerComponents();
 
