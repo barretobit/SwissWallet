@@ -1,0 +1,57 @@
+Phase 1 — Foundation (5 tasks)
+ 1.  Scaffold solution structure: folders (Data, Models, Services, Pages, Components, Configuration, Migrations), empty Blazor Server project, wire up Bootstrap via LibMan
+ 2.  Define all domain model classes (Provider, Portfolio, PortfolioEntry, Liability, LiabilityEntry, ExchangeRate, AppSettings)
+ 3.  Install EF Core + SQLite NuGet packages, create DbContext with DbSets
+ 4.  Add initial migration, wire DbContext in Program.cs, verify app starts
+ 5.  Create layout shell: nav menu with links for Dashboard, Providers, Portfolios, Liabilities, Exchange Rates, Settings
+
+Phase 2 — Providers CRUD (3 tasks)
+ 6.  Provider list page (table, search/filter)
+ 7.  Provider create + edit form (validation, save)
+ 8.  Provider delete with confirmation dialog
+
+Phase 3 — Portfolios CRUD (5 tasks)
+ 9.  Portfolio list page
+10.  Portfolio create/edit form (with Provider dropdown, AssetType dropdown)
+11.  Portfolio detail page (show entries)
+12.  PortfolioEntry — add valuation
+13.  PortfolioEntry — add contribution / withdrawal
+
+Phase 4 — Liabilities CRUD (4 tasks)
+14.  Liability list page
+15.  Liability create/edit form
+16.  Liability detail page with entries
+17.  LiabilityEntry — add balance record
+
+Phase 5 — Exchange Rates & Settings (3 tasks)
+18.  ExchangeRate list + add/edit page
+19.  Settings page (edit base currency, backup retention)
+20.  Currency helper service (conversion to CHF, formatting)
+
+Phase 6 — Dashboard — Summary (6 tasks)
+21.  Dashboard layout with summary card row
+22.  Net worth calculation service
+23.  Total Assets card
+24.  Total Liabilities card  
+25.  Liquid vs Illiquid breakdown cards
+26.  Net Worth summary card (Total Assets − Total Liabilities)
+
+Phase 7 — Dashboard — Charts (5 tasks)
+27.  Asset Allocation chart (pie/donut)
+28.  Currency Allocation chart
+29.  Provider Allocation chart
+30.  Liquidity Allocation chart
+31.  Progression section with % change (1m, 3m, 6m, 1y)
+
+Phase 8 — Backup & Export (4 tasks)
+32.  Backup service (copy SQLite file, timestamp naming)
+33.  Backup / Restore UI page
+34.  CSV Export service
+35.  CSV Export button on relevant pages
+
+Phase 9 — Polish (5 tasks)
+36.  Navigation active-state highlighting, breadcrumbs
+37.  Input validation on all forms
+38.  Error handling & user feedback (toast/alert on save/delete)
+39.  Responsive layout & Bootstrap polish
+40.  Final review pass, README update
