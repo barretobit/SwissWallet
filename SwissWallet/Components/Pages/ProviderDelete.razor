@@ -1,0 +1,63 @@
+@page "/providers/{Id:int}/delete"
+@inject SwissWalletDbContext Db
+@inject NavigationManager Nav
+
+<PageTitle>Delete Provider</PageTitle>
+
+<h3 class="mb-3">Delete Provider</h3>
+
+@if (provider is null && !string.IsNullOrEmpty(errorMessage))
+{
+    <div class="alert alert-danger">@errorMessage</div>
+    <a href="providers" class="btn btn-secondary">Back to Providers</a>
+}
+else if (provider is not null)
+{
+    <div class="alert alert-warning">
+        <strong>Are you sure you want to delete this provider?</strong>
+    </div>
+
+    <table class="table">
+        <tr><th>Name</th><td>@provider.Name</td></tr>
+        <tr><th>Notes</th><td class="text-muted">@provider.Notes</td></tr>
+    </table>
+
+    <form @onsubmit="Delete">
+        <button type="submit" class="btn btn-danger">Delete</button>
+        <a href="providers" class="btn btn-secondary ms-2">Cancel</a>
+    </form>
+}
+
+@code {
+    [Parameter]
+    public int Id { get; set; }
+
+    private Provider? provider;
+    private string? errorMessage;
+
+    protected override async Task OnInitializedAsync()
+    {
+        provider = await Db.Providers.FindAsync(Id);
+
+        if (provider is null)
+        {
+            errorMessage = "Provider not found.";
+        }
+    }
+
+    private async Task Delete()
+    {
+        if (provider is null) return;
+
+        try
+        {
+            Db.Providers.Remove(provider);
+            await Db.SaveChangesAsync();
+            Nav.NavigateTo("providers");
+        }
+        catch (Exception ex)
+        {
+            errorMessage = $"An error occurred while deleting: {ex.Message}";
+        }
+    }
+}

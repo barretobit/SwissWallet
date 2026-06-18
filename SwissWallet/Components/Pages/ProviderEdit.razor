@@ -1,0 +1,84 @@
+@page "/providers/new"
+@page "/providers/{Id:int}/edit"
+@inject SwissWalletDbContext Db
+@inject NavigationManager Nav
+
+<PageTitle>@(IsEdit ? "Edit Provider" : "New Provider")</PageTitle>
+
+<h3 class="mb-3">@(IsEdit ? "Edit Provider" : "New Provider")</h3>
+
+<EditForm Model="provider" OnValidSubmit="Save" FormName="providerForm">
+    <DataAnnotationsValidator />
+
+    @if (!string.IsNullOrEmpty(errorMessage))
+    {
+        <div class="alert alert-danger">@errorMessage</div>
+    }
+
+    <div class="mb-3">
+        <label for="name" class="form-label">Name</label>
+        <InputText id="name" class="form-control" @bind-Value="provider.Name" />
+        <ValidationMessage For="@(() => provider.Name)" class="text-danger" />
+    </div>
+
+    <div class="mb-3">
+        <label for="notes" class="form-label">Notes</label>
+        <InputTextArea id="notes" class="form-control" @bind-Value="provider.Notes" />
+    </div>
+
+    <button type="submit" class="btn btn-primary">Save</button>
+    <a href="providers" class="btn btn-secondary ms-2">Cancel</a>
+</EditForm>
+
+@code {
+    [Parameter]
+    public int? Id { get; set; }
+
+    private Provider provider = new();
+    private bool IsEdit => Id.HasValue;
+    private string? errorMessage;
+
+    protected override async Task OnInitializedAsync()
+    {
+        if (Id.HasValue)
+        {
+            var existing = await Db.Providers.FindAsync(Id.Value);
+            if (existing is null)
+            {
+                errorMessage = "Provider not found.";
+                return;
+            }
+            provider = existing;
+        }
+    }
+
+    private async Task Save()
+    {
+        errorMessage = null;
+
+        if (string.IsNullOrWhiteSpace(provider.Name))
+        {
+            errorMessage = "Name is required.";
+            return;
+        }
+
+        try
+        {
+            if (IsEdit)
+            {
+                Db.Providers.Update(provider);
+            }
+            else
+            {
+                Db.Providers.Add(provider);
+            }
+
+            await Db.SaveChangesAsync();
+            Nav.NavigateTo("providers");
+        }
+        catch (Exception ex)
+        {
+            errorMessage = $"An error occurred while saving: {ex.Message}";
+        }
+    }
+}

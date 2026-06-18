@@ -1,5 +1,75 @@
 @page "/providers"
+@inject SwissWalletDbContext Db
 
 <PageTitle>Providers</PageTitle>
 
-<h3>Providers</h3>
+<h3 class="mb-3">Providers</h3>
+
+<div class="d-flex justify-content-between mb-3">
+    <a href="providers/new" class="btn btn-primary">+ New Provider</a>
+    <input @bind="search" @bind:after="() => FilterProviders()"
+           class="form-control w-25" placeholder="Search providers..." />
+</div>
+
+@if (filteredProviders is null)
+{
+    <p>Loading...</p>
+}
+else if (filteredProviders.Count == 0)
+{
+    <p class="text-muted">No providers found.</p>
+}
+else
+{
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th>Name</th>
+                <th>Notes</th>
+                <th class="text-end">Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var provider in filteredProviders)
+            {
+                <tr>
+                    <td>@provider.Name</td>
+                    <td class="text-muted">@provider.Notes</td>
+                    <td class="text-end">
+                        <a href="providers/@provider.Id/edit" class="btn btn-sm btn-outline-primary me-1">Edit</a>
+                        <a href="providers/@provider.Id/delete" class="btn btn-sm btn-outline-danger">Delete</a>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}
+
+@code {
+    private List<Provider> allProviders = [];
+    private List<Provider> filteredProviders = [];
+    private string search = string.Empty;
+
+    protected override async Task OnInitializedAsync()
+    {
+        allProviders = await Db.Providers
+            .OrderBy(p => p.Name)
+            .ToListAsync();
+        filteredProviders = [.. allProviders];
+    }
+
+    private void FilterProviders()
+    {
+        if (string.IsNullOrWhiteSpace(search))
+        {
+            filteredProviders = [.. allProviders];
+            return;
+        }
+
+        var term = search.Trim().ToLowerInvariant();
+        filteredProviders = allProviders
+            .Where(p => p.Name.Contains(term, StringComparison.OrdinalIgnoreCase)
+                     || (p.Notes?.Contains(term, StringComparison.OrdinalIgnoreCase) ?? false))
+            .ToList();
+    }
+}
